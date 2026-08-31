@@ -15,6 +15,7 @@
 <!-- ===== SEO / social / structured data ===== -->
 <meta name="description" content="Roof cleaning, house washing and soft washing in New Hampshire, northern Massachusetts and Florida. Cleaned from a 45-foot lift, never from the roof. Rated 5.0 on Google. Free estimates: (603) 931-8801.">
 <link rel="canonical" href="https://aproofclean.com/">
+<link rel="preload" as="image" href="img-01.jpg" fetchpriority="high">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#102334">
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAwFBMVEUSZ3gRWGkPRlcPOEkTdof7/PwPTmAAAAAsaHcUhZawyM0QLT4CVFVok50hWmo1dIPG1trY5Ofl7O4QLkB0oqwRVWZOg5Bki5ZqmKITV2sSVWdXfYmlvcMOKjkPKjoQKz0QLD4RWGgTg5MUhJYTg5QAqqo2cH5EbHoRT2ASYHERYXMSf5EUhJmXrrWcv8bM3OAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG8MQ5AAAAQHRSTlP+/v7+/v//AP/6//gG/////////f9O////Gor//xpOitjYTorYA///24nWHBn///8AAAAAAAAAAAAAAAAAAAAAYzaMCQAAAUhJREFUeNp9k9l2gjAQQGcCk4RFZHevWmvt3v//u05IWKyaOQceuHc2AqBStdsfqmAI0cdxnTKEVD0l1T0uEbFRKTBPkgfcGLDzccQV7CsfhzUcKg9HOIIv3xhwixGnfBDEleSKwCiIQG/ai0HZzETb80EQBVHJmUJTF0VrOfQFLubpRmAnFCXf9EQQIvg2wtYKMeKWaDm2MK1LimMqM5SvLAixJKoHgXGwIVos+BLIwu+s5onavoXJD7hkhpwrcW6HpLjDIdjdM6Jc65wnk0Yoiry2PISOBwuXRrWYmyEB0HIniLgXcnSC407QhmiN3GM+CuEo8FIzPqRuOV2WPyN3AmaZPT3tXt/ArSClnB7wlHfCLR25Ea6+n/+cBT+P4M3PX2Dt42F0gpWXR1+gmsf1o+jZ/LzNZLsbfgb+w1fvH3fnO32qs/oD6OMT1o4rZHIAAAAASUVORK5CYII=">
@@ -438,11 +439,11 @@
     <p class="lede" data-i18n="proc_lede"></p>
 
     <div class="vgrid">
-      <div class="vcard"><div class="frame"><video src="video-09.mp4" poster="img-10.jpg" autoplay muted loop playsinline controls preload="metadata"></video></div>
+      <div class="vcard"><div class="frame"><video src="video-09.mp4" poster="img-10.jpg" muted loop playsinline controls preload="none" data-autoplay-in-view></video></div>
         <strong data-i18n="vid1_t"></strong><span data-i18n="vid1_d"></span></div>
-      <div class="vcard"><div class="frame"><video src="video-11.mp4" poster="img-12.jpg" muted loop playsinline controls preload="metadata"></video></div>
+      <div class="vcard"><div class="frame"><video src="video-11.mp4" poster="img-12.jpg" muted loop playsinline controls preload="none"></video></div>
         <strong data-i18n="vid2_t"></strong><span data-i18n="vid2_d"></span></div>
-      <div class="vcard"><div class="frame"><video src="video-13.mp4" poster="img-14.jpg" muted loop playsinline controls preload="metadata"></video></div>
+      <div class="vcard"><div class="frame"><video src="video-13.mp4" poster="img-14.jpg" muted loop playsinline controls preload="none"></video></div>
         <strong data-i18n="vid3_t"></strong><span data-i18n="vid3_d"></span></div>
     </div>
 
@@ -632,5 +633,18 @@ document.querySelectorAll('.lang-btn').forEach(function(b){
 })();
 </script>
 
+<script>
+/* Carrega e inicia o video do processo somente quando ele entra na tela. */
+(function(){
+  var vs = document.querySelectorAll("video[data-autoplay-in-view]");
+  if (!vs.length) return;
+  var start = function(v){ v.preload = "auto"; v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function(){}); };
+  if (!("IntersectionObserver" in window)) { Array.prototype.forEach.call(vs, start); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) { io.unobserve(e.target); start(e.target); } });
+  }, { rootMargin: "200px 0px" });
+  Array.prototype.forEach.call(vs, function(v){ io.observe(v); });
+})();
+</script>
 </body>
 </html>
