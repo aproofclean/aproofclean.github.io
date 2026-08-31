@@ -9,6 +9,32 @@
     gtag('js', new Date());
     gtag('config', 'AW-18196760292');
   </script>
+  <!-- Google Ads conversion events (form submit + phone click) -->
+  <script>
+    (function () {
+      var AW = 'AW-18196760292';
+      var FORM_LABEL = AW + '/dD7uCPeP9uocEOSN8uRD';
+      var PHONE_LABEL = AW + '/olNTCLyT9uocEOSN8uRD';
+      function fire(label, cb) {
+        if (typeof gtag !== 'function') { if (cb) cb(); return; }
+        var done = false;
+        var go = function () { if (!done) { done = true; if (cb) cb(); } };
+        gtag('event', 'conversion', { send_to: label, value: 1.0, currency: 'USD', event_callback: go });
+        setTimeout(go, 900);
+      }
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[href^="tel:"]') : null;
+        if (a) { fire(PHONE_LABEL); }
+      }, true);
+      document.addEventListener('submit', function (e) {
+        var f = e.target;
+        if (!f || f.tagName !== 'FORM' || f.dataset.awSent === '1') { return; }
+        e.preventDefault();
+        f.dataset.awSent = '1';
+        fire(FORM_LABEL, function () { f.submit(); });
+      }, true);
+    })();
+  </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Roof Cleaning &amp; House Washing in NH | AP Exterior Cleaning</title>
